@@ -1,0 +1,47 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "twitter-bootstrap@5.2.3",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "css/bootstrap.min.css",
+        "js/bootstrap.bundle.min.js"
+      ]
+    },
+    {
+      "library": "popper.js@2.11.6",
+      "destination": "wwwroot/lib/popper/",
+      "files": [
+        "umd/popper.min.js"
+      ]
+    },
+    {
+      "library": "bootstrap-icons@1.10.2",
+      "destination": "wwwroot/lib/bootstrap-icons/"
+    },
+    {
+      "library": "jquery@3.6.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "jquery.min.js"
+      ]
+    },
+    {
+      "library": "jquery.mask@1.14.16",
+      "destination": "wwwroot/lib/jquery-mask",
+      "files": [
+        "jquery.mask.min.js"
+      ]
+    },
+    {
+      "library": "tagify@4.17.4",
+      "destination": "wwwroot/lib/tagify",
+      "files": [
+        "tagify.min.css",
+        "jQuery.tagify.min.js"
+      ]
+    }
+  ]
+}

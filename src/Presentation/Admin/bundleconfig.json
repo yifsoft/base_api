@@ -1,0 +1,25 @@
+[
+  {
+    "outputFileName": "wwwroot/assets/css/main.min.css",
+    "inputFiles": [
+      "wwwroot/lib/bootstrap/css/bootstrap.min.css",
+      "wwwroot/lib/bootstrap-icons/font/bootstrap-icons.min.css",
+      "wwwroot/lib/tagify/tagify.min.css",
+      "wwwroot/assets/css/main.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/assets/js/main.min.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/jquery.min.js",
+      "wwwroot/lib/bootstrap/js/bootstrap.bundle.min.js",
+      "wwwroot/lib/popper/umd/popper.min.js",
+      "wwwroot/lib/tagify/jQuery.tagify.min.js",
+      "wwwroot/assets/js/main.js"
+    ],
+    "minify": {
+      "enabled": false,
+      "renameLocals": true
+    }
+  }
+]

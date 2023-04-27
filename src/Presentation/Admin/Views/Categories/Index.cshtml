@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CategoryViewModel>
+@{
+    ViewData["Title"] = "Kategoriler";
+    var languages = ViewData["languageSelectList"] as List<SelectListItem>;
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between mb-2 mt-2">
+        <h4>Kategoriler</h4>
+        <div class="d-flex">
+            <form asp-controller="Categories" method="get" class="me-2">
+                <select class="form-select" name="lang" onchange="this.form.submit()" asp-items="languages">
+                    <option value="">Tümü</option>
+                </select>
+            </form>
+            <a asp-controller="Categories" asp-action="Add" class="btn btn-outline-dark ">Kategori Ekle</a>
+        </div>
+    </div>
+    <div class="box">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th scope="col">#</th>
+                        <th scope="col">Kategori Adı</th>
+                        <th scope="col">Kategori Dili</th>
+                        <th scope="col">Post Sayısı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (@Model != null)
+                    {
+                        var i = 0;
+
+                        foreach (var item in Model)
+                        {
+                            i++;
+
+                            <tr class="text-center clickable-row" onclick="window.location = '/Categories/Edit/@item.Id';">
+                                <td><strong>@i</strong></td>
+                                <td>@item.Name</td>
+                                <td>@(item.Language == Language.en ? "İngilizce":"Türkçe" )</td>
+                                <td>@item.Posts?.Count()</td>
+                            </tr>
+                            }
+                            }
+                            else
+                            {
+                            <tr class="text-center">
+                                <th colspan="4">Kayıt bulunamadı.</th>
+                            </tr>
+                            }
+                        </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,98 @@
+﻿@model PostDto
+@{
+    ViewData["Title"] = "Post Ekle";
+    var languages = ViewData["languageSelectList"] as List<SelectListItem>;
+    var categories = ViewData["categorySelectList"] as List<SelectListItem>;
+}
+
+<div class="container-fluid">
+    <h4 class="mb-2 mt-2">
+        Post Ekle
+    </h4>
+    <div class="box">
+        <form asp-controller="Posts" asp-action="Add" enctype="multipart/form-data" method="post">
+            <div class="mb-3">
+                <label asp-for="Language" class="form-label">Post Dili</label>
+                <select class="form-select" asp-for="Language" asp-items="languages">
+                    <option disabled selected>Post dili seçiniz</option>
+                </select>
+                <span asp-validation-for="Language" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="form-label">Post Kategorisi</label>
+                <select class="form-select" asp-for="CategoryId" asp-items="categories">
+                    <option disabled selected>Kategori seçiniz</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label">Başlık</label>
+                <input type="text" asp-for="Title" slug-input class="form-control" />
+                <span asp-validation-for="Title" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Slug" class="form-label">Görünen url</label>
+                <div class="input-group">
+                    <span class="input-group-text">https://blog.com/</span>
+                    <input type="text" asp-for="Slug" slug-output class="form-control" />
+                </div>
+                <span asp-validation-for="Slug" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Body" class="form-label">İçerik</label>
+                <textarea type="text" asp-for="Body" class="form-control" rows="30"> </textarea>
+                <span asp-validation-for="Body" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MetaTags" class="form-label">Meta Etiketleri</label>
+                <input type="text" asp-for="MetaTags" meta-tags class="form-control" />
+                <span asp-validation-for="MetaTags" class="form-label text-danger"></span>
+            </div>
+            <div class="text-end">
+                <button type="submit" class="btn btn-dark btn-lg">@localizer[Messages.View.Save]</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+    <script src="https://cdn.tiny.cloud/1/lxix9jobyz8t52c56ppzfn9zesr34epm1d9svccp4ptd9brf/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+
+    $("#Language").change(function () {
+        $.getJSON("/Categories/List", { lang:this.value }, function (items) {
+            var select = $('#CategoryId');
+            select.empty().prop("disabled", false).append("<option disabled='disabled'>Kategori seçiniz</option>");
+            $.each(items, function (i, item) {
+                select.append(new Option(item.name, item.id));
+            });
+        });
+    });
+
+    tinymce.init({
+        selector: '#Body',
+        plugins: 'image code anchor autolink charmap codesample emoticons link lists media searchreplace table visualblocks wordcount',
+        toolbar: 'image table align code',
+        toolbar_mode: 'floating',
+        tinycomments_mode: 'embedded',
+        image_caption: true,
+        autosave_interval: '30s',
+        image_title: true,
+        paste_data_images: true,
+        automatic_uploads: true,
+        relative_urls: true,
+        images_upload_url: '/Posts/UploadImage',
+        image_list: '/Posts/ImageList',
+        file_picker_types: 'image',
+        branding: false,
+        image_class_list: [
+            { title: 'None', value: '' },
+            { title: 'img-fluid rounded', value: 'img-fluid rounded' },
+            { title: 'img-fluid', value: 'img-fluid' },
+        ],
+    });
+    </script>
+}

@@ -1,0 +1,66 @@
+﻿@model CategoryDto
+@{
+    ViewData["Title"] = "Kategori Düzenle";
+    var languages = ViewData["languageSelectList"] as List<SelectListItem>;
+}
+
+<div class="container-fluid">
+    <h4 class="mb-2 mt-2">
+        Kategori Ekle
+    </h4>
+    <div class="box">
+        <form asp-controller="Categories" asp-action="Edit" enctype="multipart/form-data" method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label asp-for="Language" class="form-label">Katergori Dili</label>
+                <select class="form-select" asp-for="Language" asp-items="languages">
+                    <option disabled selected>Katergori dili seçiniz</option>
+                </select>
+                <span asp-validation-for="Language" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Kategori Adı</label>
+                <input type="text" asp-for="Name" slug-input class="form-control" />
+                <span asp-validation-for="Name" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Slug" class="form-label">Görünen url</label>
+                <div class="input-group">
+                    <span class="input-group-text">https://blog.com/</span>
+                    <input type="text" asp-for="Slug" slug-output class="form-control" />
+                </div>
+                <span asp-validation-for="Slug" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MetaTags" class="form-label">Meta Etiketleri</label>
+                <input type="text" asp-for="MetaTags" meta-tags class="form-control" />
+                <span asp-validation-for="MetaTags" class="form-label text-danger"></span>
+            </div>
+            <div class="text-end">
+                <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#deleteModal">@localizer[Messages.View.Delete] <i class="fs-5 bi bi-trash"></i></button>
+                <button type="submit" class="btn btn-dark btn-lg">@localizer[Messages.View.Update]</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Kategori Sil</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Silmek istediğine emin misiniz ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Kapat</button>
+                <form asp-controller="Categories" asp-action="Delete" enctype="multipart/form-data" method="post" asp-route-id="@Model.Id">
+                    <button type="submit" class="btn btn-danger" onclick="">@localizer[Messages.View.Delete] <i class="fs-5 bi bi-trash"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

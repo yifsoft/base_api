@@ -1,0 +1,120 @@
+﻿@model LoginDto
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <link rel="Shortcut Icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" asp-append-version="true" />
+    <title>Blog Admin | Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            outline: none;
+            list-style: none;
+        }
+
+        html,
+        body {
+            height: 100vh;
+            width: 100%;
+            text-rendering: optimizeSpeed;
+            line-height: 1.5;
+            background: rgb(56,7,38);
+            background: linear-gradient(347deg, rgba(56,7,38,1) 0%, rgba(0,72,118,1) 50%, rgba(6,15,51,1) 100%);
+        }
+
+
+        .wrapper {
+            position: absolute;
+            width: 100%;
+            max-width: 600px;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .form-body {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+        }
+
+        input[type=text], input[type=password] {
+            background: #fafafa;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            color: #000;
+        }
+
+        .group {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+        }
+
+        .btn {
+            background-color: rgba(0,72,118,1);
+            color: #fff;
+        }
+
+            .btn:active, .btn:focus, .btn:hover {
+                background-color: rgba(0,72,118,0.9) !important;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="form-body">
+            <h3 class="text-center mb-4">Blog Admin Panel</h3>
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl">
+                <div class="form-group">
+                    <input type="text" class="form-control" asp-for="Email" placeholder="Email" required />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" asp-for="Password" placeholder="Password" required />
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                </div>
+                <div class="group mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" asp-for="RememberMe" />
+                        <label asp-for="RememberMe" class="form-label">Remember me</label>
+                    </div>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn text-light">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

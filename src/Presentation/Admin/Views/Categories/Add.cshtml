@@ -1,0 +1,46 @@
+﻿@model CategoryDto
+@{
+    ViewData["Title"] = "Kategori Ekle";
+    var languages = ViewData["languageSelectList"] as List<SelectListItem>;
+}
+
+<div class="container-fluid">
+    <h4 class="mb-2 mt-2">
+        Kategori Ekle
+    </h4>
+    <div class="box">
+        <form asp-controller="Categories" asp-action="Add" enctype="multipart/form-data" method="post">
+            <div class="mb-3">
+                <label asp-for="Language" class="form-label">Katergori Dili</label>
+                <select class="form-select" asp-for="Language" asp-items="languages">
+                    <option disabled selected>Katergori dili seçiniz</option>
+                </select>
+                <span asp-validation-for="Language" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Kategori Adı</label>
+                <input type="text" asp-for="Name" slug-input class="form-control" />
+                <span asp-validation-for="Name" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Slug" class="form-label">Görünen url</label>
+                <div class="input-group">
+                    <span class="input-group-text">https://blog.com/</span>
+                    <input type="text" asp-for="Slug" slug-output class="form-control" />
+                </div>
+                <span asp-validation-for="Slug" class="form-label text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MetaTags" class="form-label">Meta Etiketleri</label>
+                <input type="text" asp-for="MetaTags" meta-tags class="form-control" />
+                <span asp-validation-for="MetaTags" class="form-label text-danger"></span>
+            </div>
+            <div class="text-end">
+                <button type="submit" class="btn btn-dark btn-lg">@localizer[Messages.View.Save]</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

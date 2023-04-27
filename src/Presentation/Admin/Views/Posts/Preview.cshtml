@@ -1,0 +1,16 @@
+﻿@model PostViewModel
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between mb-2 mt-2">
+        <h4>@Model.Title</h4>
+        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark ">Düzenle</a>
+    </div>
+    <h6>Yazar : @Model.User.FirstName @Model.User.LastName</h6>
+    <p>Post: <a href="http://blog.com/@Model.Slug">http://blog.com/@Model.Slug</a></p>
+    <div class="box">
+        @Html.Raw(Model.Body)
+    </div>
+</div>
