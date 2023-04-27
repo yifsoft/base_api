@@ -1,23 +1,12 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
-WORKDIR /app
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS builder
+WORKDIR /sln
 
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY ./*.sln ./NuGet.config  ./
+
+# Copy the main source project files
+COPY src/*/*.csproj ./
+RUN for file in $(ls *.csproj); do mkdir -p src/${file%.*}/ && mv $file src/${file%.*}/; done
+
 RUN dotnet restore
 
-# Copy everything else and build
-COPY . ./
-RUN dotnet publish -c Release -o out
-
-# Build runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
-WORKDIR /app
-COPY --from=build-env /app/out .
-
-# Set environment variables
-ENV ASPNETCORE_ENVIRONMENT=Production
-ENV ASPNETCORE_URLS=http://+:80
-
-# Expose port and start the app
-EXPOSE 80
-ENTRYPOINT ["dotnet", "Admin.dll"]
+# Remainder of build process
