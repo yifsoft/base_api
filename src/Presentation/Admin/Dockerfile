@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS builder
 WORKDIR /sln
 
-COPY ./*.sln ./NuGet.config  ./
+COPY ./*.sln  ./
 
 # Copy the main source project files
 COPY src/*/*.csproj ./
