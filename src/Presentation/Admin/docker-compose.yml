@@ -1,0 +1,16 @@
+﻿version: '3.8'
+services:
+  s_blog_api:
+    container_name: c_blog_api
+    image: blog_api
+    restart: unless-stopped
+    ports:
+      - 5005:5005
+
+    
+
+
+# Jenkins Shell #
+# docker build -t blog_api .
+# docker-compose up -d
+# docker image prune -af
