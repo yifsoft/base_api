@@ -5,7 +5,7 @@ services:
     image: base_api
     restart: unless-stopped
     ports:
-      - 80:5005
+      - 5005:5005
 
     
 

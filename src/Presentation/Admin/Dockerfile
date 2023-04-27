@@ -1,24 +1,23 @@
-
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
 WORKDIR /app
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["src/Presentation/Admin/Admin.csproj", "src/Presentation/Admin/"]
-COPY ["src/Infrastructure/Infrastructure/Infrastructure.csproj", "src/Infrastructure/Infrastructure/"]
-COPY ["src/Core/Application/Application.csproj", "src/Core/Application/"]
-COPY ["src/Core/Domain/Domain.csproj", "src/Core/Domain/"]
-COPY ["src/Core/Resource/Resource.csproj", "src/Core/Resource/"]
-COPY ["src/Infrastructure/Persistence/Persistence.csproj", "src/Infrastructure/Persistence/"]
-RUN dotnet restore "src/Presentation/Admin/Admin.csproj"
-COPY . .
-WORKDIR "/src/src/Presentation/Admin"
-RUN dotnet build "Admin.csproj" -c Release -o /app/build
+# Copy csproj and restore as distinct layers
+COPY *.csproj ./
+RUN dotnet restore
 
-FROM build AS publish
-RUN dotnet publish "Admin.csproj" -c Release -o /app/publish /p:UseAppHost=false
+# Copy everything else and build
+COPY . ./
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build-env /app/out .
+
+# Set environment variables
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS=http://+:80
+
+# Expose port and start the app
+EXPOSE 80
 ENTRYPOINT ["dotnet", "Admin.dll"]
