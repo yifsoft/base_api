@@ -9,10 +9,10 @@ services:
       dockerfile: src/Presentation/Api/Dockerfile
     restart: unless-stopped
     ports:
-      - 5002:5000
+      - 5002:5002
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:5000
+      - ASPNETCORE_URLS=https://+:5002
 
   s_admin:
     image: base_admin
@@ -22,7 +22,7 @@ services:
       dockerfile: src/Presentation/Admin/Dockerfile
     restart: unless-stopped
     ports:
-      - 5003:5001
+      - 5003:5003
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:5001
+      - ASPNETCORE_URLS=https://+:5003
