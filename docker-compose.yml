@@ -11,7 +11,11 @@ services:
     ports:
       - 5002:5002
     environment:
-      - ASPNETCORE_URLS=https://+:5002
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5002
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
   s_admin:
     image: base_admin
@@ -23,4 +27,8 @@ services:
     ports:
       - 5003:5003
     environment:
-      - ASPNETCORE_URLS=https://+:5003
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5003
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
