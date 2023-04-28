@@ -1,13 +1,13 @@
 version: '3.8'
 
 services:
-  admin:
-    image: ${DOCKER_REGISTRY-}admin
+  s_admin:
+    image: base_admin
     build:
       context: .
       dockerfile: src/Presentation/Admin/Dockerfile
-  api:
-    image: ${DOCKER_REGISTRY-}api
+  s_api:
+    image: base_api
     build:
       context: .
       dockerfile: src/Presentation/Api/Dockerfile
