@@ -1,15 +1,6 @@
 version: '3.8'
 
 services:
-  s_admin:
-    image: base_admin
-    container_name: c_base_admin
-    build:
-      context: .
-      dockerfile: src/Presentation/Admin/Dockerfile
-    restart: unless-stopped
-    ports:
-      - 5005:80
   s_api:
     image: base_api
     container_name: c_base_api
@@ -18,4 +9,13 @@ services:
       dockerfile: src/Presentation/Api/Dockerfile
     restart: unless-stopped
     ports:
-      - 5006:80
+      - 5006:5000
+  s_admin:
+    image: base_admin
+    container_name: c_base_admin
+    build:
+      context: .
+      dockerfile: src/Presentation/Admin/Dockerfile
+    restart: unless-stopped
+    ports:
+      - 5005:5001
