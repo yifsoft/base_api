@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  admin:
+    image: ${DOCKER_REGISTRY-}admin
+    build:
+      context: .
+      dockerfile: src/Presentation/Admin/Dockerfile
+
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+
